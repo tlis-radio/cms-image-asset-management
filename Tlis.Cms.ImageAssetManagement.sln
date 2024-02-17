@@ -1,0 +1,73 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8A276985-B8BB-4F9F-A662-8FEA6F6141FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tlis.Cms.ImageAssetManagement", "Tlis.Cms.ImageAssetManagement", "{7F0EA20C-923D-4D3F-97C6-1B580EBD5F0C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{EB28E5CB-24EE-48EB-8EAE-6B092F168D0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tlis.Cms.ImageAssetManagement.Api", "src\Tlis.Cms.ImageAssetManagement\Api\src\Tlis.Cms.ImageAssetManagement.Api.csproj", "{D1B6E2DE-2993-4D5B-A2E7-EE6A7D45938B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{E05B3D98-E080-421D-954A-1CE68D9BC8C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tlis.Cms.ImageAssetManagement.Application", "src\Tlis.Cms.ImageAssetManagement\Application\src\Tlis.Cms.ImageAssetManagement.Application.csproj", "{1C7F7EFD-A878-47EB-A4AE-87F71F66937D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{0069AEF7-368D-48BA-9446-EB90873FAC2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tlis.Cms.ImageAssetManagement.Domain", "src\Tlis.Cms.ImageAssetManagement\Domain\src\Tlis.Cms.ImageAssetManagement.Domain.csproj", "{331AD5DD-FD2E-4E02-86DF-59065CC89EF8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{315E9A5A-192C-4354-B258-C70629C890F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tlis.Cms.ImageAssetManagement.Infrastructure", "src\Tlis.Cms.ImageAssetManagement\Infrastructure\src\Tlis.Cms.ImageAssetManagement.Infrastructure.csproj", "{10711B12-449F-48DA-8B9D-23CD5B133483}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tlis.Cms.ImageAssetManagement.Cli", "Tlis.Cms.ImageAssetManagement.Cli", "{60695C13-D671-4404-A830-46C7F410FD72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tlis.Cms.ImageAssetManagement.Cli", "src\Tlis.Cms.ImageAssetManagement.Cli\src\Tlis.Cms.ImageAssetManagement.Cli.csproj", "{4ACEC915-3611-4603-9827-7B4C9CE60DEA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D1B6E2DE-2993-4D5B-A2E7-EE6A7D45938B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1B6E2DE-2993-4D5B-A2E7-EE6A7D45938B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1B6E2DE-2993-4D5B-A2E7-EE6A7D45938B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1B6E2DE-2993-4D5B-A2E7-EE6A7D45938B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C7F7EFD-A878-47EB-A4AE-87F71F66937D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C7F7EFD-A878-47EB-A4AE-87F71F66937D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C7F7EFD-A878-47EB-A4AE-87F71F66937D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C7F7EFD-A878-47EB-A4AE-87F71F66937D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{331AD5DD-FD2E-4E02-86DF-59065CC89EF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{331AD5DD-FD2E-4E02-86DF-59065CC89EF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{331AD5DD-FD2E-4E02-86DF-59065CC89EF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{331AD5DD-FD2E-4E02-86DF-59065CC89EF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10711B12-449F-48DA-8B9D-23CD5B133483}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10711B12-449F-48DA-8B9D-23CD5B133483}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10711B12-449F-48DA-8B9D-23CD5B133483}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10711B12-449F-48DA-8B9D-23CD5B133483}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ACEC915-3611-4603-9827-7B4C9CE60DEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ACEC915-3611-4603-9827-7B4C9CE60DEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ACEC915-3611-4603-9827-7B4C9CE60DEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ACEC915-3611-4603-9827-7B4C9CE60DEA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7F0EA20C-923D-4D3F-97C6-1B580EBD5F0C} = {8A276985-B8BB-4F9F-A662-8FEA6F6141FA}
+		{EB28E5CB-24EE-48EB-8EAE-6B092F168D0A} = {7F0EA20C-923D-4D3F-97C6-1B580EBD5F0C}
+		{D1B6E2DE-2993-4D5B-A2E7-EE6A7D45938B} = {EB28E5CB-24EE-48EB-8EAE-6B092F168D0A}
+		{E05B3D98-E080-421D-954A-1CE68D9BC8C7} = {7F0EA20C-923D-4D3F-97C6-1B580EBD5F0C}
+		{1C7F7EFD-A878-47EB-A4AE-87F71F66937D} = {E05B3D98-E080-421D-954A-1CE68D9BC8C7}
+		{0069AEF7-368D-48BA-9446-EB90873FAC2D} = {7F0EA20C-923D-4D3F-97C6-1B580EBD5F0C}
+		{331AD5DD-FD2E-4E02-86DF-59065CC89EF8} = {0069AEF7-368D-48BA-9446-EB90873FAC2D}
+		{315E9A5A-192C-4354-B258-C70629C890F5} = {7F0EA20C-923D-4D3F-97C6-1B580EBD5F0C}
+		{10711B12-449F-48DA-8B9D-23CD5B133483} = {315E9A5A-192C-4354-B258-C70629C890F5}
+		{60695C13-D671-4404-A830-46C7F410FD72} = {8A276985-B8BB-4F9F-A662-8FEA6F6141FA}
+		{4ACEC915-3611-4603-9827-7B4C9CE60DEA} = {60695C13-D671-4404-A830-46C7F410FD72}
+	EndGlobalSection
+EndGlobal
