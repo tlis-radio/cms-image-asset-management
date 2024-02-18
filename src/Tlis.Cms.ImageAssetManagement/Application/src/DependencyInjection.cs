@@ -22,6 +22,7 @@ public static class DependencyInjection
             cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
         });
 
-        services.AddSingleton<IImageProcessingService, ImageProcessingService>();
+        services.AddScoped<IImageProcessingService, ImageProcessingService>();
+        services.AddSingleton<IImageService, ImageService>();
     }
 }

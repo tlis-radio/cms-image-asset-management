@@ -1,8 +1,11 @@
-using System.IO;
+using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Tlis.Cms.ImageAssetManagement.Domain.Entities.Images;
 
 namespace Tlis.Cms.ImageAssetManagement.Application.Services.Interfaces;
 
 internal interface IImageProcessingService
 {
-    Stream Resize(Stream stream, int width, int height);
+    Task<UserProfileImage> CreateUserImageAsync(IFormFile image, Guid userId);
 }

@@ -52,19 +52,6 @@ public sealed class ImageController(IMediator mediator) : ControllerBase
             : CreatedAtAction(nameof(GetById), new { response.Id } , response);
     }
 
-    [HttpPut("user-profile")]
-    [SwaggerOperation("Updat user's profile image.")]
-    [Produces(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    public async ValueTask<ActionResult<BaseCreateResponse>> UpdateUserProfileImage([FromForm] UserProfileImageUpdateRequest request)
-    {
-        var response = await mediator.Send(request);
-
-        return response ? NoContent() : NotFound();
-    }
-
     [HttpDelete("{id:guid}")]
     [Authorize(Policy.ImageDelete)]
     [SwaggerOperation("Delete image")]

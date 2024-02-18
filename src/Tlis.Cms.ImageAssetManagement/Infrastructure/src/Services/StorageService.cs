@@ -29,8 +29,8 @@ internal sealed class StorageService(
     public Task<bool> DeleteUserProfileImage(string fileUrl)
         => DeleteFile(_userProfileImagesContainerClient, fileUrl);
 
-    public Task<(Guid, string)> UploadUserProfileImage(Stream stream)
-        => UploadImage(_userProfileImagesContainerClient, stream, UserProfileImagesContainer);
+    public Task<string> UploadUserProfileImage(Stream stream, Guid imageId)
+        => UploadImage(_userProfileImagesContainerClient, stream, UserProfileImagesContainer, imageId);
 
     public Task UpdateUserProfileImage(Stream stream, Guid imageId)
         => UpdateImage(_userProfileImagesContainerClient, stream, UserProfileImagesContainer, imageId);
@@ -59,14 +59,13 @@ internal sealed class StorageService(
         await UploadImage(client, stream, containerName, imageId);
     }
 
-    private async Task<(Guid, string)> UploadImage(
+    private async Task<string> UploadImage(
         BlobContainerClient client,
         Stream stream,
         string containerName,
-        Guid? imageId = null)
+        Guid imageId)
     {
-        imageId ??= Guid.NewGuid();
-        var storageFileName = GetStorageFileName(imageId.Value, ImageFormat.WEBP);
+        var storageFileName = GetStorageFileName(imageId, ImageFormat.WEBP);
         var blob = client.GetBlobClient(storageFileName);
         stream.Position = 0;
 
@@ -78,7 +77,7 @@ internal sealed class StorageService(
             }
         });
 
-        return (imageId.Value, Path.Combine(_storageAccountUrl, containerName, storageFileName));
+        return Path.Combine(_storageAccountUrl, containerName, storageFileName);
     }
 
     private static string GetStorageFileName(Guid guid, ImageFormat format)

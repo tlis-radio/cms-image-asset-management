@@ -1,9 +1,9 @@
-using System.Collections.Generic;
+using System;
 using Tlis.Cms.ImageAssetManagement.Domain.Entities.Base;
 
 namespace Tlis.Cms.ImageAssetManagement.Domain.Entities.Images;
 
-public abstract class Image : BaseEntity
+public class Crop : BaseEntity
 {
     public int Width { get; set; }
 
@@ -13,5 +13,5 @@ public abstract class Image : BaseEntity
 
     public string Url { get; set; } = null!;
 
-    public virtual ICollection<Crop> Crops { get; set; } = [];
+    public Guid ImageId { get; set; }
 }

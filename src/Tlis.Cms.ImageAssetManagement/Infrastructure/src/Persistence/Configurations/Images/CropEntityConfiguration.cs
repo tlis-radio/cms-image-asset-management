@@ -5,12 +5,10 @@ using Tlis.Cms.ImageAssetManagement.Domain.Entities.Images;
 
 namespace Tlis.Cms.ImageAssetManagement.Infrastructure.Persistence.Configurations.Images;
 
-public class RoleEntityConfiguration : IEntityTypeConfiguration<Image>
+public class CropEntityConfiguration : IEntityTypeConfiguration<Crop>
 {
-    public void Configure(EntityTypeBuilder<Image> builder)
+    public void Configure(EntityTypeBuilder<Crop> builder)
     {
-        builder.UseTptMappingStrategy();
-
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedOnAdd().HasValueGenerator((_, _) => new GuidValueGenerator());
 
@@ -19,10 +17,6 @@ public class RoleEntityConfiguration : IEntityTypeConfiguration<Image>
         builder.Property(x => x.Url).IsRequired();
         builder.Property(x => x.Size).IsRequired();
 
-        builder
-            .HasMany(x => x.Crops)
-            .WithOne()
-            .HasForeignKey(x => x.ImageId)
-            .IsRequired();
+        builder.HasIndex(x => x.ImageId);
     }
 }
