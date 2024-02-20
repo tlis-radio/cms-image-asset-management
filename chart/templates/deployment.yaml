@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.spec.replicas }}
+  selector:
+    matchLabels:
+      service: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+        service: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}
+          image: tliscr.azurecr.io/cms-image-asset-management:{{ .Chart.AppVersion }}
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+          - mountPath: /app/appsettings.json
+            name: config
+            subPath: appsettings.json
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          env:
+            - name: ASPNETCORE_URLS
+              value: http://+:80
+      initContainers:
+        - name: ef-migration
+          image: tliscr.azurecr.io/cms-image-asset-management-cli:{{ .Chart.AppVersion }}
+          args: ['migration']
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+          - mountPath: /app/appsettings.json
+            name: config
+            subPath: appsettings.json
+      {{ if .Values.spec.imagePullSecrets }}
+      imagePullSecrets:
+        - name: {{ .Values.spec.imagePullSecrets | quote }}
+      {{ end }}
+      volumes:
+      - name: config
+        configMap:
+          name: {{ .Release.Name }}

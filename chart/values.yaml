@@ -1,0 +1,16 @@
+spec:
+  replicas: 1
+  imagePullSecrets: ""
+
+config:
+  connectionStrings:
+    postgres: ""
+    storageAccount: ""
+  jwt:
+    audience: ""
+    authority: ""
+  serviceUrls:
+    storageAccount: ""
+  imageProcessing: 
+    {
+    }
