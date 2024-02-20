@@ -19,8 +19,6 @@ public sealed class ImageController(IMediator mediator) : ControllerBase
 {
     [HttpGet("{id:guid}")]
     [Authorize(Policy.ImageRead)]
-    [RequestSizeLimit(5000000)]
-    [FormFileContentTypeFilter(ContentType = "image/jpeg,image/png")]
     [SwaggerOperation("Get image byt id")]
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(typeof(ImageGetByIdResponse), StatusCodes.Status200OK)]
@@ -40,6 +38,8 @@ public sealed class ImageController(IMediator mediator) : ControllerBase
     [Authorize(Policy.ImageWrite)]
     [SwaggerOperation("Save image as user profile image.")]
     [Produces(MediaTypeNames.Application.Json)]
+    [RequestSizeLimit(5000000)]
+    [FormFileContentTypeFilter(ContentType = "image/jpeg,image/png")]
     [ProducesResponseType(typeof(BaseCreateResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
