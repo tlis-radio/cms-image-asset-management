@@ -18,7 +18,7 @@ namespace Tlis.Cms.ImageAssetManagement.Api.Controllers;
 public sealed class ImageController(IMediator mediator) : ControllerBase
 {
     [HttpGet("{id:guid}")]
-    [Authorize(Policy.ImageRead)]
+    [AllowAnonymous]
     [SwaggerOperation("Get image byt id")]
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(typeof(ImageGetByIdResponse), StatusCodes.Status200OK)]
