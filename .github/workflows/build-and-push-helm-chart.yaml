@@ -16,6 +16,13 @@ on:
         description: 'Container Name'
         required: true
         type: string
+    secrets:
+      CONTAINER_REGISTRY_USERNAME:
+        description: 'Azure Container Registry Username'
+        required: true
+      CONTAINER_REGISTRY_PASSWORD:
+        description: 'Azure Container Registry Password'
+        required: true
 
 jobs:
   build-helm-chart-and-push:

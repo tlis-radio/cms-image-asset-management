@@ -17,6 +17,9 @@ jobs:
       acr_name: ${{ vars.CONTAINER_REGISTRY_NAME }}
       container_name: cms-image-asset-management
       environment: development
+    secrets:
+      CONTAINER_REGISTRY_USERNAME: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
+      CONTAINER_REGISTRY_PASSWORD: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
         
   build-helm-chart-and-push:
     name: 'Build helm chart and push to ACR'
@@ -25,6 +28,9 @@ jobs:
       acr_name: ${{ vars.CONTAINER_REGISTRY_NAME }}
       container_name: cms-image-asset-management
       environment: development
+    secrets:
+      CONTAINER_REGISTRY_USERNAME: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
+      CONTAINER_REGISTRY_PASSWORD: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
 
   helm-chart-upgrade:
     environment: 'development'
