@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Build and push image"
-        uses: "./.github/workflows/build-and-push-image"
+        uses: "./.github/workflows/build-and-push-image.yaml"
         with:
           acr_name: ${{ env.AZURE_CONTAINER_REGISTRY }}
           container_name: ${{ env.CONTAINER_NAME }}
@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Build and push helm chart"
-        uses: "./.github/workflows/build-and-push-helm-chart"
+        uses: "./.github/workflows/build-and-push-helm-chart.yaml"
         with:
           acr_name: ${{ env.AZURE_CONTAINER_REGISTRY }}
           container_name: ${{ env.CONTAINER_NAME }}
