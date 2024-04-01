@@ -12,13 +12,6 @@ on:
         description: 'Container Name'
         required: true
         type: string
-    secrets:
-      container_registry_username:
-        description: 'Azure Container Registry Username'
-        required: true
-      container_registry_password:
-        description: 'Azure Container Registry Password'
-        required: true
 
 jobs:
   build-helm-chart-and-push:
@@ -37,7 +30,7 @@ jobs:
       # login to Azure Container Registry
       - name: 'Login to acr using helm'
         run: |
-          echo $ | helm registry login ${{ inputs.acr_name }}.azurecr.io --username ${{ secrets.container_registry_username }} --password ${{ secrets.container_registry_password }}
+          echo $ | helm registry login ${{ inputs.acr_name }}.azurecr.io --username ${{ secrets.CONTAINER_REGISTRY_USERNAME }} --password ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
       # package and push the chart
       - name: 'Package chart'
         run: cd chart && helm package . --app-version ${{ github.sha }}

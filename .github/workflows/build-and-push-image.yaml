@@ -12,13 +12,6 @@ on:
         description: 'Container Name'
         required: true
         type: string
-    secrets:
-      container_registry_username:
-        description: 'Azure Container Registry Username'
-        required: true
-      container_registry_password:
-        description: 'Azure Container Registry Password'
-        required: true
 
 jobs:
   build-container-and-push:
@@ -32,8 +25,8 @@ jobs:
     - uses: azure/docker-login@v1
       with:
         login-server: ${{ inputs.acr_name }}.azurecr.io
-        username: ${{ inputs.container_registry_username }}
-        password: ${{ inputs.container_registry_password }}
+        username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
+        password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
     # build and push the image
     - run: |
         docker build . --file api.Dockerfile --tag ${{ inputs.acr_name }}.azurecr.io/${{ inputs.container_name }}:${{ github.sha }}

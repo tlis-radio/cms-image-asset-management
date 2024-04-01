@@ -19,9 +19,6 @@ jobs:
         with:
           acr_name: ${{ env.AZURE_CONTAINER_REGISTRY }}
           container_name: ${{ env.CONTAINER_NAME }}
-        secrets:
-          container_registry_username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
-          container_registry_password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
         
   build-helm-chart-and-push:
     name: 'Build helm chart and push to ACR'
@@ -33,9 +30,6 @@ jobs:
         with:
           acr_name: ${{ env.AZURE_CONTAINER_REGISTRY }}
           container_name: ${{ env.CONTAINER_NAME }}
-        secrets:
-          container_registry_username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
-          container_registry_password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
 
   helm-chart-upgrade:
     environment: 'development'
