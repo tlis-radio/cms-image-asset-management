@@ -14,17 +14,17 @@ jobs:
     name: 'Build container and push'
     uses: "./.github/workflows/build-and-push-image.yaml"
     with:
-      acr_name: ${{ env.AZURE_CONTAINER_REGISTRY }}
-      container_name: ${{ env.CONTAINER_NAME }}
-      environment: ${{ env.ENVIRONMENT }}
+      acr_name: ${{ vars.CONTAINER_REGISTRY_NAME }}
+      container_name: cms-image-asset-management
+      environment: development
         
   build-helm-chart-and-push:
     name: 'Build helm chart and push to ACR'
     uses: "./.github/workflows/build-and-push-helm-chart.yaml"
     with:
-      acr_name: ${{ env.AZURE_CONTAINER_REGISTRY }}
-      container_name: ${{ env.CONTAINER_NAME }}
-      environment: ${{ env.ENVIRONMENT }}
+      acr_name: ${{ vars.CONTAINER_REGISTRY_NAME }}
+      container_name: cms-image-asset-management
+      environment: development
 
   helm-chart-upgrade:
     environment: 'development'
