@@ -14,7 +14,7 @@ jobs:
     name: 'Build container and push'
     uses: "./.github/workflows/build-and-push-image.yaml"
     with:
-      acr_name: ${{ vars.CONTAINER_REGISTRY_NAME }}
+      acr_name: tliscr
       container_name: cms-image-asset-management
       environment: development
     secrets:
@@ -25,7 +25,7 @@ jobs:
     name: 'Build helm chart and push to ACR'
     uses: "./.github/workflows/build-and-push-helm-chart.yaml"
     with:
-      acr_name: ${{ vars.CONTAINER_REGISTRY_NAME }}
+      acr_name: tliscr
       container_name: cms-image-asset-management
       environment: development
     secrets:
