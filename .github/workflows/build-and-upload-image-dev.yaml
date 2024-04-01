@@ -5,35 +5,26 @@ on:
     branches: [ "develop" ]
 
 env:
+  ENVIRONMENT: 'development'
   AZURE_CONTAINER_REGISTRY: tliscr
   CONTAINER_NAME: cms-image-asset-management
   
 jobs:
   build-container-and-push:
     name: 'Build container and push'
-    environment: development
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Checkout Github Action'
-        uses: actions/checkout@v3
-      - name: "Build and push image"
-        uses: "./.github/workflows/build-and-push-image.yaml"
-        with:
-          acr_name: ${{ env.AZURE_CONTAINER_REGISTRY }}
-          container_name: ${{ env.CONTAINER_NAME }}
+    uses: "./.github/workflows/build-and-push-image.yaml"
+    with:
+      acr_name: ${{ env.AZURE_CONTAINER_REGISTRY }}
+      container_name: ${{ env.CONTAINER_NAME }}
+      environment: ${{ env.ENVIRONMENT }}
         
   build-helm-chart-and-push:
     name: 'Build helm chart and push to ACR'
-    environment: 'development'
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Checkout Github Action'
-        uses: actions/checkout@v3
-      - name: "Build and push helm chart"
-        uses: "./.github/workflows/build-and-push-helm-chart.yaml"
-        with:
-          acr_name: ${{ env.AZURE_CONTAINER_REGISTRY }}
-          container_name: ${{ env.CONTAINER_NAME }}
+    uses: "./.github/workflows/build-and-push-helm-chart.yaml"
+    with:
+      acr_name: ${{ env.AZURE_CONTAINER_REGISTRY }}
+      container_name: ${{ env.CONTAINER_NAME }}
+      environment: ${{ env.ENVIRONMENT }}
 
   helm-chart-upgrade:
     environment: 'development'

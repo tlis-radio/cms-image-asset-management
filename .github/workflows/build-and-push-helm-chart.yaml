@@ -3,6 +3,10 @@ name: 'Build and push helm chart'
 on:
   workflow_call:
     inputs:
+      environment:
+        description: 'Github Environment'
+        required: true
+        type: string
       acr_name:
         description: 'Azure Container Registry Name'
         required: true
@@ -16,7 +20,7 @@ on:
 jobs:
   build-helm-chart-and-push:
       name: 'Build helm chart and push'
-      environment: 'development'
+      environment: ${{ inputs.environment }}
       runs-on: ubuntu-latest
       steps:
       # checkout the repo

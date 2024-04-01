@@ -3,6 +3,10 @@ name: 'Build and push image'
 on:
   workflow_call:
     inputs:
+      environment:
+        description: 'Github Environment'
+        required: true
+        type: string
       acr_name:
         description: 'Azure Container Registry Name'
         required: true
@@ -16,6 +20,7 @@ on:
 jobs:
   build-container-and-push:
     name: 'Build container and push to ACR'
+    environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     steps:
     # checkout the repo
