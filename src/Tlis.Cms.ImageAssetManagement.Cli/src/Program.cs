@@ -3,12 +3,11 @@ using System.CommandLine.Builder;
 using System.CommandLine.Parsing;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Tlis.Cms.ImageAssetManagement.Cli.Commands;
-using Tlis.Cms.ImageAssetManagement.Infrastructure.Persistence;
+using Tlis.Cms.ImageAssetManagement.Infrastructure;
 
 namespace Tlis.Cms.ImageAssetManagement.Cli;
 
@@ -42,7 +41,8 @@ public static class Program
         var services = new ServiceCollection();
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile($"appsettings.json", optional: true)
+            .AddJsonFile($"appsettings.Development.json", optional: true)
+            .AddJsonFile($"appsettings.Production.json", optional: true)
             .Build();
 
         Log.Logger = new LoggerConfiguration().WriteTo
@@ -54,20 +54,7 @@ public static class Program
 
         services.AddSingleton<Command, MigrationCommand>();
 
-        services.AddDbContext<ImageAssetManagementDbContext>(
-            options =>
-            {
-                options
-                    .UseNpgsql(
-                        configuration.GetConnectionString("Postgres"),
-                        x => x.MigrationsHistoryTable(
-                            Microsoft.EntityFrameworkCore.Migrations.HistoryRepository.DefaultTableName, 
-                            "cms_image_asset_management"))
-                    .UseSnakeCaseNamingConvention();
-            },
-            contextLifetime: ServiceLifetime.Transient,
-            optionsLifetime: ServiceLifetime.Singleton
-        );
+        services.AddDbContext(configuration);
 
         return services.BuildServiceProvider();
     }

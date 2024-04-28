@@ -4,6 +4,7 @@ on:
   push:
     branches: [ "develop" ]
 
+# TODO: asi to tu uz netreba
 env:
   ENVIRONMENT: 'development'
   AZURE_CONTAINER_REGISTRY: tliscr
@@ -84,4 +85,6 @@ jobs:
         --set config.jwt.audience="${{ secrets.JWT_AUDIENCE }}" \
         --set config.jwt.authority="${{ secrets.JWT_AUTHORITY }}" \
         --set config.serviceUrls.storageAccount="${{ vars.SERVICE_URL_STORAGE_ACCOUNT }}" \
-        --set-json 'config.imageProcessing=${{ vars.IMAGE_PROCESSING }}'
+        --set-json 'config.imageProcessing=${{ vars.IMAGE_PROCESSING }}' \
+        --set environment="staging" \
+        --set config.otel.exporterOtlpEndpoint="${{ secrets.OTEL_EXPORTER_OTLP_ENDPOINT }}"

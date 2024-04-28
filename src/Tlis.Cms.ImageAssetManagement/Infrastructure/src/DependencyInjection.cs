@@ -22,18 +22,21 @@ public static class DependencyInjection
 
         services.AddSingleton<IStorageService, StorageService>();
 
+        services.AddDbContext(configuration);
+        services.AddTransient<IUnitOfWork, UnitOfWork>();
+    }
+
+    public static void AddDbContext(this IServiceCollection services, IConfiguration configuration)
+    {
         services.AddDbContext<ImageAssetManagementDbContext>(options =>
             {
                 options
                     .UseNpgsql(
                         configuration.GetConnectionString("Postgres"),
-                        x => x.MigrationsHistoryTable(
-                            HistoryRepository.DefaultTableName, 
-                            "cms_image_asset_management"))
+                        x => x.MigrationsHistoryTable(HistoryRepository.DefaultTableName, ImageAssetManagementDbContext.SCHEMA))
                     .UseSnakeCaseNamingConvention();
             },
             contextLifetime: ServiceLifetime.Transient,
             optionsLifetime: ServiceLifetime.Singleton);
-        services.AddTransient<IUnitOfWork, UnitOfWork>();
     }
 }

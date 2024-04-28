@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Tlis.Cms.ImageAssetManagement.Api.Extensions;
 using Tlis.Cms.ImageAssetManagement.Application;
 using Tlis.Cms.ImageAssetManagement.Infrastructure;
@@ -24,6 +25,10 @@ public static class Program
         builder.Services.ConfigureProblemDetails();
         builder.Services.ConfigureSwagger();
         builder.Services.ConfigureAuthorization(builder.Configuration);
+
+        builder.Logging.AddConsole();
+        builder.Logging.ConfigureOtel();
+        builder.Services.ConfigureOtel();
 
         builder.Services.AddApplication(builder.Configuration);
         builder.Services.AddInfrastructure(builder.Configuration);
