@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Npgsql;
 using OpenTelemetry.Logs;
@@ -13,12 +15,18 @@ namespace Tlis.Cms.ImageAssetManagement.Api.Extensions;
 
 public static class OtelSetup
 {
-    public static void ConfigureOtel(this IServiceCollection services)
+    public static void ConfigureOtel(this IServiceCollection services, IHostEnvironment environment)
     {
+        var deploymentEnvironmentAttribute = new KeyValuePair<string, object>("deployment.environment", environment.EnvironmentName);
+
         services
             .AddOpenTelemetry()
             .WithMetrics(metrics => metrics
-                .SetResourceBuilder(ResourceBuilder.CreateEmpty().AddService(Telemetry.ServiceName))
+                .SetResourceBuilder(
+                    ResourceBuilder
+                        .CreateEmpty()
+                        .AddService(Telemetry.ServiceName)
+                        .AddAttributes([ deploymentEnvironmentAttribute ]))
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
                 .AddMeter("Microsoft.AspNetCore.Hosting")
@@ -28,6 +36,7 @@ public static class OtelSetup
                 .SetResourceBuilder(ResourceBuilder
                     .CreateEmpty()
                     .AddService(Telemetry.ServiceName)
+                    .AddAttributes([ deploymentEnvironmentAttribute ])
                     .AddDetector(new ContainerResourceDetector())
                     .AddDetector(new HostDetector()))
                 .SetSampler(new AlwaysOnSampler())
@@ -39,12 +48,17 @@ public static class OtelSetup
                 .AddOtlpExporter());
     }
 
-    public static void ConfigureOtel(this ILoggingBuilder logging)
+    public static void ConfigureOtel(this ILoggingBuilder logging, IHostEnvironment environment)
     {
+        var deploymentEnvironmentAttribute = new KeyValuePair<string, object>("deployment.environment", environment.EnvironmentName);
+
         logging.AddOpenTelemetry(options =>
         {
             options.SetResourceBuilder(
-                ResourceBuilder.CreateDefault().AddService(Telemetry.ServiceName))
+                ResourceBuilder
+                    .CreateDefault()
+                    .AddService(Telemetry.ServiceName)
+                    .AddAttributes([ deploymentEnvironmentAttribute ]))
                 .AddOtlpExporter();
         });
     }
