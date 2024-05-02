@@ -27,8 +27,8 @@ public static class Program
         builder.Services.ConfigureAuthorization(builder.Configuration);
 
         builder.Logging.AddConsole();
-        builder.Logging.ConfigureOtel();
-        builder.Services.ConfigureOtel();
+        builder.Logging.ConfigureOtel(builder.Environment);
+        builder.Services.ConfigureOtel(builder.Environment);
 
         builder.Services.AddApplication(builder.Configuration);
         builder.Services.AddInfrastructure(builder.Configuration);
