@@ -8,4 +8,6 @@ namespace Tlis.Cms.ImageAssetManagement.Application.Services.Interfaces;
 internal interface IImageProcessingService
 {
     Task<UserProfileImage> CreateUserImageAsync(IFormFile image, Guid userId);
+
+    Task<ShowImage> CreateShowImageAsync(IFormFile image, Guid showId);
 }

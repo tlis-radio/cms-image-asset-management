@@ -18,6 +18,48 @@ internal sealed class ImageProcessingService(
 {
     private readonly ImageProcessingConfiguration _configuration = configuration.Value;
 
+public async Task<ShowImage> CreateShowImageAsync(IFormFile image, Guid showId)
+    {
+        using var originalImageStream = image.OpenReadStream();
+        var originalImageId = Guid.NewGuid();
+        var cropImageId = Guid.NewGuid();
+
+        var (
+            originalImage,
+            originalFileSize,
+            originalImageSize,
+            originalImageWebpUrl
+        ) = await ProcessOriginalImageAsync(image, originalImageId);
+
+        using (originalImage)
+        {
+            var (
+                croppedFileSize,
+                croppedWebpUrl
+            ) = await CropImageAsync(originalImage, originalImageSize, _configuration.Show, cropImageId);
+
+            return new ShowImage
+            {
+                Id = originalImageId,
+                ShowId = showId,
+                Width = originalImageSize.Width,
+                Height = originalImageSize.Height,
+                Url = originalImageWebpUrl,
+                Size = originalFileSize,
+                Crops = [
+                    new Crop
+                    {
+                        Id = cropImageId,
+                        Height = _configuration.Show.Height,
+                        Width = _configuration.Show.Width,
+                        Size = croppedFileSize,
+                        Url = croppedWebpUrl
+                    }
+                ]
+            };
+        }
+    }
+
     public async Task<UserProfileImage> CreateUserImageAsync(IFormFile image, Guid userId)
     {
         using var originalImageStream = image.OpenReadStream();
