@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Tlis.Cms.ImageAssetManagement.Api.Constants;
-using Tlis.Cms.ImageAssetManagement.Api.Controllers.Attributes;
 using Tlis.Cms.ImageAssetManagement.Application.Contracts.Api.Requests;
 using Tlis.Cms.ImageAssetManagement.Application.Contracts.Api.Responses;
 
@@ -39,7 +38,6 @@ public sealed class ImageController(IMediator mediator) : ControllerBase
     [SwaggerOperation("Save image as user profile image.")]
     [Produces(MediaTypeNames.Application.Json)]
     [RequestSizeLimit(5000000)]
-    [FormFileContentTypeFilter(ContentType = "image/jpeg,image/png")]
     [ProducesResponseType(typeof(BaseCreateResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
