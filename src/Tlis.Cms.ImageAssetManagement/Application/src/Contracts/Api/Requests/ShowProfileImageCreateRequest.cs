@@ -5,7 +5,7 @@ using Tlis.Cms.ImageAssetManagement.Application.Contracts.Api.Responses;
 
 namespace Tlis.Cms.ImageAssetManagement.Application.Contracts.Api.Requests;
 
-public sealed class ShowImageCreateRequest : IRequest<BaseCreateResponse>
+public sealed class ShowProfileImageCreateRequest : IRequest<BaseCreateResponse>
 {
     public Guid ShowId { get; set; }
 

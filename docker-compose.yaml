@@ -41,7 +41,7 @@ services:
     image: mcr.microsoft.com/azure-cli
 
     command: >
-      az storage container create -n user-profile-images --connection-string "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://azure-blob-storage:10000/devstoreaccount1;QueueEndpoint=http://azure-blob-storage:10001/devstoreaccount1;"
+      az storage container create -n images --connection-string "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://azure-blob-storage:10000/devstoreaccount1;QueueEndpoint=http://azure-blob-storage:10001/devstoreaccount1;"
 
 volumes:
   cms_imageassetmanagement_rabbitmq_data:

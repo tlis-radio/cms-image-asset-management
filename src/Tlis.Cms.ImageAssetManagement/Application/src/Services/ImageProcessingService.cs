@@ -18,7 +18,7 @@ internal sealed class ImageProcessingService(
 {
     private readonly ImageProcessingConfiguration _configuration = configuration.Value;
 
-public async Task<ShowImage> CreateShowImageAsync(IFormFile image, Guid showId)
+public async Task<Image> CreateShowImageAsync(IFormFile image, Guid showId)
     {
         using var originalImageStream = image.OpenReadStream();
         var originalImageId = Guid.NewGuid();
@@ -38,10 +38,9 @@ public async Task<ShowImage> CreateShowImageAsync(IFormFile image, Guid showId)
                 croppedWebpUrl
             ) = await CropImageAsync(originalImage, originalImageSize, _configuration.Show, cropImageId);
 
-            return new ShowImage
+            return new Image
             {
                 Id = originalImageId,
-                ShowId = showId,
                 Width = originalImageSize.Width,
                 Height = originalImageSize.Height,
                 Url = originalImageWebpUrl,
@@ -60,7 +59,7 @@ public async Task<ShowImage> CreateShowImageAsync(IFormFile image, Guid showId)
         }
     }
 
-    public async Task<UserProfileImage> CreateUserImageAsync(IFormFile image, Guid userId)
+    public async Task<Image> CreateUserImageAsync(IFormFile image, Guid userId)
     {
         using var originalImageStream = image.OpenReadStream();
         var originalImageId = Guid.NewGuid();
@@ -80,10 +79,9 @@ public async Task<ShowImage> CreateShowImageAsync(IFormFile image, Guid showId)
                 croppedWebpUrl
             ) = await CropImageAsync(originalImage, originalImageSize, _configuration.User, cropImageId);
 
-            return new UserProfileImage
+            return new Image
             {
                 Id = originalImageId,
-                UserId = userId,
                 Width = originalImageSize.Width,
                 Height = originalImageSize.Height,
                 Url = originalImageWebpUrl,
@@ -109,7 +107,7 @@ public async Task<ShowImage> CreateShowImageAsync(IFormFile image, Guid showId)
         var image = imageService.ToImage(imageStream);
         var imageSize = imageService.GetSize(image);
         using var webp = imageService.ToWebp(image);
-        var webpUrl = await storageService.UploadUserProfileImage(webp, imageId);
+        var webpUrl = await storageService.UploadImage(webp, imageId);
 
         return new (image, webp.Length, imageSize, webpUrl);
     }
@@ -130,7 +128,7 @@ public async Task<ShowImage> CreateShowImageAsync(IFormFile image, Guid showId)
 
         using var webp = imageService.ToWebp(resizedCroppedImage);
         
-        var webpUrl = await storageService.UploadUserProfileImage(webp, imageId);
+        var webpUrl = await storageService.UploadImage(webp, imageId);
 
         return (webp.Length, webpUrl);
     }

@@ -19,21 +19,21 @@ internal sealed class StorageService(
     ILogger<StorageService> logger,
     IOptions<ServiceUrlsConfiguration> serviceUrlsConfiguration) : IStorageService
 {
-    private const string UserProfileImagesContainer = "user-profile-images";
+    private const string ImagesContainer = "images";
     
     private readonly string _storageAccountUrl = serviceUrlsConfiguration.Value.StorageAccount;
 
-    private readonly BlobContainerClient _userProfileImagesContainerClient = new(
-        configuration.GetConnectionString("StorageAccount"), UserProfileImagesContainer);
+    private readonly BlobContainerClient _imagesContainerClient = new(
+        configuration.GetConnectionString("StorageAccount"), ImagesContainer);
     
-    public Task<bool> DeleteUserProfileImage(string fileUrl)
-        => DeleteFile(_userProfileImagesContainerClient, fileUrl);
+    public Task<bool> DeleteImage(string fileUrl)
+        => DeleteFile(_imagesContainerClient, fileUrl);
 
-    public Task<string> UploadUserProfileImage(Stream stream, Guid imageId)
-        => UploadImage(_userProfileImagesContainerClient, stream, UserProfileImagesContainer, imageId);
+    public Task<string> UploadImage(Stream stream, Guid imageId)
+        => UploadImage(_imagesContainerClient, stream, ImagesContainer, imageId);
 
-    public Task UpdateUserProfileImage(Stream stream, Guid imageId)
-        => UpdateImage(_userProfileImagesContainerClient, stream, UserProfileImagesContainer, imageId);
+    public Task UpdateImage(Stream stream, Guid imageId)
+        => UpdateImage(_imagesContainerClient, stream, ImagesContainer, imageId);
 
     private async Task<bool> DeleteFile(BlobContainerClient client, string fileUrl)
     {

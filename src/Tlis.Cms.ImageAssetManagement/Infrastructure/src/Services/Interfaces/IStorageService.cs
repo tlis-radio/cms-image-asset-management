@@ -6,9 +6,9 @@ namespace Tlis.Cms.ImageAssetManagement.Infrastructure.Services.Interfaces;
 
 public interface IStorageService
 {
-    public Task<bool> DeleteUserProfileImage(string fileUrl);
+    public Task<bool> DeleteImage(string fileUrl);
 
-    public Task<string> UploadUserProfileImage(Stream stream, Guid imageId);
+    public Task<string> UploadImage(Stream stream, Guid imageId);
 
-    Task UpdateUserProfileImage(Stream stream, Guid imageId);
+    Task UpdateImage(Stream stream, Guid imageId);
 }

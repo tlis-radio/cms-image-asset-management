@@ -3,7 +3,7 @@ using Tlis.Cms.ImageAssetManagement.Domain.Entities.Base;
 
 namespace Tlis.Cms.ImageAssetManagement.Domain.Entities.Images;
 
-public abstract class Image : BaseEntity
+public class Image : BaseEntity
 {
     public int Width { get; set; }
 

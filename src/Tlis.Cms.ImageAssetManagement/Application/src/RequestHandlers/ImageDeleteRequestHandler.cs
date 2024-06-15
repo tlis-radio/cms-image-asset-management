@@ -22,7 +22,7 @@ internal sealed class ImageDeleteRequestHandler(
             return false;
         }
 
-        if (await storageService.DeleteUserProfileImage(image.Url) is false)
+        if (await storageService.DeleteImage(image.Url) is false)
         {
             throw new UnableToDeleteFromStorageException();
         }
