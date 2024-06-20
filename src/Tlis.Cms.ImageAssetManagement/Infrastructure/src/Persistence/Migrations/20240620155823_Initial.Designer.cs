@@ -12,8 +12,8 @@ using Tlis.Cms.ImageAssetManagement.Infrastructure.Persistence;
 namespace Tlis.Cms.ImageAssetManagement.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ImageAssetManagementDbContext))]
-    [Migration("20240615150129_SimplefyImageEntity")]
-    partial class SimplefyImageEntity
+    [Migration("20240620155823_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

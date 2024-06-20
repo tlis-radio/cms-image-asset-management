@@ -27,7 +27,7 @@ namespace Tlis.Cms.ImageAssetManagement.Infrastructure.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_image", x => x.id);
+                    table.PrimaryKey("pk_image", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -54,37 +54,11 @@ namespace Tlis.Cms.ImageAssetManagement.Infrastructure.Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "user_profile_image",
-                schema: "cms_image_asset_management",
-                columns: table => new
-                {
-                    id = table.Column<Guid>(type: "uuid", nullable: false),
-                    user_id = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_user_profile_image", x => x.id);
-                    table.ForeignKey(
-                        name: "fk_user_profile_image_image_id",
-                        column: x => x.id,
-                        principalSchema: "cms_image_asset_management",
-                        principalTable: "image",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "ix_crop_image_id",
                 schema: "cms_image_asset_management",
                 table: "crop",
                 column: "image_id");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_user_profile_image_user_id",
-                schema: "cms_image_asset_management",
-                table: "user_profile_image",
-                column: "user_id");
         }
 
         /// <inheritdoc />
@@ -92,10 +66,6 @@ namespace Tlis.Cms.ImageAssetManagement.Infrastructure.Persistence.Migrations
         {
             migrationBuilder.DropTable(
                 name: "crop",
-                schema: "cms_image_asset_management");
-
-            migrationBuilder.DropTable(
-                name: "user_profile_image",
                 schema: "cms_image_asset_management");
 
             migrationBuilder.DropTable(
