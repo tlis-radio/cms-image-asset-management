@@ -10,19 +10,19 @@ using Tlis.Cms.ImageAssetManagement.Infrastructure.Persistence.Interfaces;
 
 namespace Tlis.Cms.ImageAssetManagement.Application.RequestHandlers;
 
-internal sealed class UserProfileImageCreateRequestHandler(
+internal sealed class BroadcastImageCreateRequestHandler(
     IUnitOfWork unitOfWork,
     IImageProcessingService imageProcessingService,
     IOptions<ImageProcessingConfiguration> imageProcessingConfiguration)
-    : IRequestHandler<UserProfileImageCreateRequest, BaseCreateResponse>
+    : IRequestHandler<BroadcastImageCreateRequest, BaseCreateResponse>
 {
-    public async Task<BaseCreateResponse> Handle(UserProfileImageCreateRequest request, CancellationToken cancellationToken)
+    public async Task<BaseCreateResponse> Handle(BroadcastImageCreateRequest request, CancellationToken cancellationToken)
     {
-        var userImage = await imageProcessingService.CreateImageAsync(request.Image, imageProcessingConfiguration.Value.User);
+        var broadcastImage = await imageProcessingService.CreateImageAsync(request.Image, imageProcessingConfiguration.Value.Broadcast);
 
-        await unitOfWork.ImageRepository.InsertAsync(userImage);
+        await unitOfWork.ImageRepository.InsertAsync(broadcastImage);
         await unitOfWork.SaveChangesAsync();
 
-        return new BaseCreateResponse { Id = userImage.Id };
+        return new BaseCreateResponse { Id = broadcastImage.Id };
     }
 }

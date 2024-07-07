@@ -2,7 +2,6 @@ using System;
 using System.Drawing;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
 using Tlis.Cms.ImageAssetManagement.Application.Configurations;
 using Tlis.Cms.ImageAssetManagement.Application.Services.Interfaces;
 using Tlis.Cms.ImageAssetManagement.Domain.Entities.Images;
@@ -12,13 +11,10 @@ namespace Tlis.Cms.ImageAssetManagement.Application.Services;
 
 internal sealed class ImageProcessingService(
     IStorageService storageService,
-    IImageService imageService,
-    IOptions<ImageProcessingConfiguration> configuration)
+    IImageService imageService)
     : IImageProcessingService
 {
-    private readonly ImageProcessingConfiguration _configuration = configuration.Value;
-
-public async Task<Image> CreateShowImageAsync(IFormFile image, Guid showId)
+    public async Task<Image> CreateImageAsync(IFormFile image, ImageFormatConfiguration format)
     {
         using var originalImageStream = image.OpenReadStream();
         var originalImageId = Guid.NewGuid();
@@ -36,7 +32,7 @@ public async Task<Image> CreateShowImageAsync(IFormFile image, Guid showId)
             var (
                 croppedFileSize,
                 croppedWebpUrl
-            ) = await CropImageAsync(originalImage, originalImageSize, _configuration.Show, cropImageId);
+            ) = await CropImageAsync(originalImage, originalImageSize, format, cropImageId);
 
             return new Image
             {
@@ -49,49 +45,8 @@ public async Task<Image> CreateShowImageAsync(IFormFile image, Guid showId)
                     new Crop
                     {
                         Id = cropImageId,
-                        Height = _configuration.Show.Height,
-                        Width = _configuration.Show.Width,
-                        Size = croppedFileSize,
-                        Url = croppedWebpUrl
-                    }
-                ]
-            };
-        }
-    }
-
-    public async Task<Image> CreateUserImageAsync(IFormFile image, Guid userId)
-    {
-        using var originalImageStream = image.OpenReadStream();
-        var originalImageId = Guid.NewGuid();
-        var cropImageId = Guid.NewGuid();
-
-        var (
-            originalImage,
-            originalFileSize,
-            originalImageSize,
-            originalImageWebpUrl
-        ) = await ProcessOriginalImageAsync(image, originalImageId);
-
-        using (originalImage)
-        {
-            var (
-                croppedFileSize,
-                croppedWebpUrl
-            ) = await CropImageAsync(originalImage, originalImageSize, _configuration.User, cropImageId);
-
-            return new Image
-            {
-                Id = originalImageId,
-                Width = originalImageSize.Width,
-                Height = originalImageSize.Height,
-                Url = originalImageWebpUrl,
-                Size = originalFileSize,
-                Crops = [
-                    new Crop
-                    {
-                        Id = cropImageId,
-                        Height = _configuration.User.Height,
-                        Width = _configuration.User.Width,
+                        Height = format.Height,
+                        Width = format.Width,
                         Size = croppedFileSize,
                         Url = croppedWebpUrl
                     }

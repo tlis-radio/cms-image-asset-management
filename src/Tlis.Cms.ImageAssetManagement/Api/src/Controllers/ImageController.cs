@@ -50,6 +50,23 @@ public sealed class ImageController(IMediator mediator) : ControllerBase
             : CreatedAtAction(nameof(GetById), new { response.Id } , response);
     }
 
+    [HttpPost("broadcast")]
+    [Authorize(Policy.ImageWrite)]
+    [SwaggerOperation("Save image as broadcast image.")]
+    [Produces(MediaTypeNames.Application.Json)]
+    [RequestSizeLimit(5000000)]
+    [ProducesResponseType(typeof(BaseCreateResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    public async ValueTask<ActionResult<BaseCreateResponse>> CreateBroadcastImage([FromForm] BroadcastImageCreateRequest request)
+    {
+        var response = await mediator.Send(request);
+
+        return response is null
+            ? BadRequest()
+            : CreatedAtAction(nameof(GetById), new { response.Id } , response);
+    }
+
     [HttpPost("show-profile")]
     [Authorize(Policy.ImageWrite)]
     [SwaggerOperation("Save image as show profile image.")]
